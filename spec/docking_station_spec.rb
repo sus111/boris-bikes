@@ -13,8 +13,8 @@ describe DockingStation do
           expect(subject.release_bike).to eq bike
       end
 
-      it "holds 20 bikes and releases a bike" do
-          20.times {  subject.dock(bike = Bike.new) }
+      it "holds default capacity bikes and releases a bike" do
+          DockingStation::DEFAULT_CAPACITY.times {  subject.dock(bike = Bike.new) }
           expect(subject.release_bike).to be_a Bike
       end
   end
@@ -25,7 +25,7 @@ describe DockingStation do
 
   describe '#dock' do
       it "raises an error if docking station already has a bike" do
-          20.times {subject.dock(Bike.new)}
+          DockingStation::DEFAULT_CAPACITY.times {subject.dock(Bike.new)}
           expect { subject.dock Bike.new }.to raise_error "Docking Station full"
       end
 
@@ -40,12 +40,14 @@ describe DockingStation do
                   subject.dock(bike)
                   expect(subject.show_last_bike).to eq bike
               }
-      #bike0 = Bike.new
-      #subject.dock(bike0)
-      #expect(subject.show_last_bike).to eq bike
   end
 
-  #it "raises an error if no bikes in docking station" do
-  #  expect { if @bike.empty?  }. to raise_error
-  #end
+  describe "#initialize" do
+    it "sets the capacity to a default value of 20 if no argument is passed" do
+      docking_station = DockingStation.new
+      expect(docking_station.).to eq DockingStation::DEFAULT_CAPACITY
+    end
+
+  end
+
 end
