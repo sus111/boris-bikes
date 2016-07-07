@@ -1,22 +1,24 @@
+require_relative 'bike'
 class DockingStation
+    def initialize
+        @bikes = []
+    end
+
     def release_bike
-        if @bike == nil
-          raise "No bikes available"
-        else
-          @bike
-        end
+        raise "No bikes available" if @bikes.empty?
+        @bikes.pop
     end
 
     def dock(bike)
-      if @bike == nil
-        @bike = bike
-      else
-        raise "Docking Station full"
-      end
+        raise "Docking Station full" if @bikes.count >= 20
+        @bikes.push(bike)
+        self.show_last_bike
     end
-    #def bike
-    #    @bike
-    #end
 
-    attr_reader :bike
+    #attr_reader :bikes
+
+    def show_last_bike
+      @bikes.last
+    end
+
 end
