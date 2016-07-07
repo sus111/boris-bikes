@@ -10,28 +10,31 @@ DEFAULT_CAPACITY = 20
 
     def release_bike
         raise "No bikes available" if empty?
-        @bikes.pop
+        bikes.pop
     end
 
     def dock(bike)
         raise "Docking Station full" if full?
-        @bikes.push(bike)
+        bikes.push(bike)
         self.show_last_bike
     end
 
-    #attr_reader :bikes
+    attr_reader :capacity
 
     def show_last_bike
-      @bikes.last
+      bikes.last
     end
 
 private
 
+    attr_reader :bikes
+
     def full?
-      @bikes.count >= DEFAULT_CAPACITY
+      bikes.count >= DEFAULT_CAPACITY
     end
 
     def empty?
-      @bikes.empty?
+      bikes.empty?
     end
+
 end
